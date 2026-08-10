@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1a102b" />
+    <title>心臟病</title>
+    <meta
+      name="description"
+      content="心臟病——翻牌看到心臟病號碼時，最快拍牌的人最安全。與 AI 對戰的反應力桌遊。"
+    />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>心臟病</h1>
+      <span class="subtitle">比誰先拍到！</span>
+      <button id="btn-mute" type="button" class="ghost" aria-label="切換音效">音效開</button>
+    </header>
+
+    <main class="game">
+      <section class="target-card" aria-label="心臟病號碼">
+        <p class="target-label">心臟病號碼</p>
+        <p id="target" class="target-num">–</p>
+        <div id="target-pick" class="target-picks"></div>
+        <p class="hint">點號碼選心臟病（選完按開始翻牌）。</p>
+      </section>
+
+      <section id="center" class="center" aria-live="polite"></section>
+
+      <div class="controls">
+        <button id="btn-new" type="button" class="primary">開始翻牌</button>
+        <button id="btn-slap" type="button" class="slap" disabled>拍！</button>
+      </div>
+
+      <p id="status" class="status" data-tone="">準備好就開始。</p>
+
+      <section id="players" class="players"></section>
+
+      <footer class="meta">
+        <span>最佳紀錄：<b id="best-label">—</b></span>
+      </footer>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

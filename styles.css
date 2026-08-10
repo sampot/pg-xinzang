@@ -1,0 +1,322 @@
+/* 心臟病 — 行動優先 */
+:root {
+  --bg: #1a102b;
+  --bg2: #241640;
+  --card: #2c1d4d;
+  --ink: #f3edff;
+  --muted: #b6a7d8;
+  --accent: #ff4d6d;
+  --accent2: #ffb703;
+  --ok: #43d17c;
+  --line: rgba(255, 255, 255, 0.1);
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(255, 77, 109, 0.18), transparent 60%),
+    var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px 10px;
+  margin-bottom: 6px;
+}
+.topbar h1 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: 0.06em;
+}
+.subtitle {
+  color: var(--muted);
+  font-size: 13px;
+  margin-right: auto;
+}
+.ghost {
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.game {
+  width: min(640px, 100%);
+  margin: 0 auto;
+  padding: 0 14px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* 右心：心臟病號碼 */
+.target-card {
+  background: linear-gradient(180deg, var(--card), #2a1a4a);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 14px;
+  text-align: center;
+}
+.target-label {
+  margin: 0 0 4px;
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+.target-num {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--accent2);
+  line-height: 1.1;
+}
+.target-picks {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin: 10px 0 2px;
+}
+.rank-pick {
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.rank-pick.on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.rank-pick:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.hint {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* 中央牌堆 */
+.center {
+  display: flex;
+  justify-content: center;
+}
+.center-inner {
+  text-align: center;
+}
+.center-card {
+  width: 86px;
+  height: 120px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin: 0 auto;
+}
+.center-card.empty {
+  background: repeating-linear-gradient(45deg, var(--card), var(--card) 8px, #34205c 8px, #34205c 16px);
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 32px;
+}
+.center-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.center-card.heartbeat {
+  animation: pulse 0.5s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.08);
+    filter: brightness(1.35);
+  }
+}
+.center-note {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* 控制 */
+.controls {
+  display: flex;
+  gap: 10px;
+}
+.controls button {
+  font-size: 17px;
+  font-weight: 700;
+  padding: 14px 0;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  min-height: 52px;
+  min-width: 44px;
+}
+.primary {
+  flex: 2;
+  background: var(--accent2);
+  color: #3a2400;
+}
+.primary:disabled {
+  opacity: 0.5;
+}
+.slap {
+  flex: 1;
+  background: var(--accent);
+  color: #fff;
+}
+.slap:disabled {
+  opacity: 0.4;
+}
+.slap:not(:disabled) {
+  animation: slapglow 0.9s ease-in-out infinite;
+}
+@keyframes slapglow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 77, 109, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 22px 6px rgba(255, 77, 109, 0.55);
+  }
+}
+
+.status {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 48px;
+  text-align: center;
+}
+.status[data-tone="win"] {
+  color: #fff;
+  background: rgba(67, 209, 124, 0.18);
+  border-color: rgba(67, 209, 124, 0.5);
+  font-weight: 700;
+}
+.status[data-tone="lose"] {
+  color: #ffd3db;
+  background: rgba(255, 77, 109, 0.16);
+  border-color: rgba(255, 77, 109, 0.5);
+}
+.status[data-tone="warn"] {
+  color: #fff;
+  background: rgba(255, 183, 3, 0.14);
+  border-color: rgba(255, 183, 3, 0.5);
+}
+
+/* 玩家 */
+.players {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.player {
+  --pc: #3b82f6;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 12px 14px;
+  background: var(--card);
+  position: relative;
+  overflow: hidden;
+}
+.player.me {
+  border-color: rgba(59, 130, 246, 0.55);
+}
+.player.active {
+  box-shadow: inset 0 0 0 2px var(--pc);
+}
+.player.out {
+  opacity: 0.45;
+}
+.player-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+.points {
+  color: var(--muted);
+  font-size: 13px;
+}
+.hand-meter {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.hand-bar {
+  height: 100%;
+  background: var(--pc);
+  border-radius: 999px;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+.hand-count {
+  margin-left: auto;
+  padding-left: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.meta {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+@media (min-width: 640px) {
+  .game {
+    padding-top: 8px;
+  }
+  .center-card {
+    width: 120px;
+    height: 168px;
+  }
+  .rank-pick {
+    font-size: 17px;
+  }
+  .players {
+    flex-direction: row;
+  }
+  .player {
+    flex: 1;
+  }
+}
